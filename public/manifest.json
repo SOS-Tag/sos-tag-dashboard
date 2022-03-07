@@ -1,0 +1,9 @@
+{
+  "short_name": "Sos-tag Dashboard",
+  "name": "Sos-tag Dashboard",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
