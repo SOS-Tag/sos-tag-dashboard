@@ -5,20 +5,39 @@ import gql from 'graphql-tag';
 export default {
   Sheet: {
     [GET_LIST]: gql`
-      query AllSheets {
-        data: allSheets {
+      query AllSheets ($options: QueryOptions) {
+        data: allSheets(options: $options) {
           response {
-            _id
-            fname
-            lname
-            sex
-            dateOfBirth
-            nationality
-            bloodType
-            smoker
-            enabled
+            items {
+                _id
+                fname
+                lname
+                sex
+                dateOfBirth
+                nationality
+                bloodType
+                smoker
+                enabled
+              }
+              totalItems
+            }
           }
-        }
+      }
+    `
+  },
+  User: {
+    [GET_LIST]: gql`
+      query AllUsers ($options: QueryOptions) {
+        data: allUsers(options: $options) {
+          response {
+            items {
+                _id
+                email
+                phone
+              }
+              totalItems
+            }
+          }
       }
     `
   },
