@@ -28,6 +28,10 @@ const enhanceBuildQuery = (buildQuery: { (introspectionResults: IntrospectionRes
           pagination: {
             page: params.pagination.page,
             limit: params.pagination.perPage,
+          },
+          sort: {
+            field: params.sort.field,
+            order: params.sort.order,
           }
         }
       },
