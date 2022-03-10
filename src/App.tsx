@@ -19,12 +19,18 @@ const enhanceBuildQuery = (buildQuery: { (introspectionResults: IntrospectionRes
     params,
   );
 
+  console.log(params);
+
   if (query && (fetchType === GET_LIST || fetchType === GET_MANY || fetchType === GET_MANY_REFERENCE))
     return {
       ...builtQuery,
       query,
       variables: {
         options: {
+          filter: {
+            field: Object.keys(params.filter)[0],
+            value: params.filter[Object.keys(params.filter)[0]],
+          },
           pagination: {
             page: params.pagination.page,
             limit: params.pagination.perPage,
