@@ -1,7 +1,10 @@
 import { get } from "lodash";
 import { BuildQuery, IntrospectionResult } from 'ra-data-graphql';
 import overridenQueries from '../queries';
-import {  GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE } from 'react-admin';
+import {  GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE } from 'react-admin';
+import { withoutProperties } from "../utils/object";
+
+const forbiddenUpdateData = ['_id', 'id', '__typename'];
 
 const enhanceBuildQuery = (buildQuery: { (introspectionResults: IntrospectionResult): BuildQuery }) => (introspectionResults: IntrospectionResult) => (
   fetchType: string,
@@ -63,6 +66,27 @@ const enhanceBuildQuery = (buildQuery: { (introspectionResults: IntrospectionRes
         };
       }
     };
+
+  if (query && fetchType === UPDATE) {
+    return {
+      ...builtQuery,
+      query,
+      variables: {
+        updateInput: {
+          id: params.id,
+          changes: withoutProperties(params.data, forbiddenUpdateData),
+        }
+      },
+      parseResponse: (response: any) => {
+        const data = response.data.data.response;
+
+        return {
+          data: {id: data._id, ...data},
+        };
+      }
+    };
+  }
+
 
   return builtQuery;
 };

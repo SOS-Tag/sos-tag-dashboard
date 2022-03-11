@@ -1,4 +1,4 @@
-import { BooleanField, Datagrid, Filter, List, Show, ShowButton, SimpleShowLayout, TextField, TextInput } from "react-admin";
+import { BooleanField, Datagrid, Edit, EditButton, Filter, List, Show, ShowButton, SimpleForm, SimpleShowLayout, TextField, TextInput } from "react-admin";
 
 export const SheetFilter = (props: any) => (
   <Filter {...props}>
@@ -19,11 +19,21 @@ export const SheetList = (props: any) => {
         <TextField source="bloodType" />
         <BooleanField source="smoker" />
         <BooleanField source="enabled" />
+        <EditButton/>
         <ShowButton/>
       </Datagrid>
     </List>
   )
 };
+
+export const SheetEdit = (props: any) => (
+  <Edit title="Edit a sheet" {...props}>
+    <SimpleForm>
+      <TextInput source="fname" />
+      <TextInput source="lname" />
+    </SimpleForm>
+  </Edit>
+);
 
 export const SheetShow = (props: any) => (
   <Show title="Show a sheet" {...props}>

@@ -1,4 +1,4 @@
-import { GET_LIST, GET_ONE } from 'react-admin';
+import { GET_LIST, GET_ONE, UPDATE } from 'react-admin';
 import gql from 'graphql-tag';
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -27,6 +27,23 @@ export default {
     [GET_ONE]: gql`
       query Sheet($id: String) {
         data: Sheet(id: $id) {
+          response {
+            _id
+            fname
+            lname
+            sex
+            dateOfBirth
+            nationality
+            bloodType
+            smoker
+            enabled
+          }
+        }
+      }
+    `,
+    [UPDATE]: gql`
+      mutation UpdateSheet($updateInput: UpdateSheetInput) {
+        data: updateSheet(updateInput: $updateInput) {
           response {
             _id
             fname
@@ -69,6 +86,19 @@ export default {
           }
         }
       }
-    `
+    `,
+    [UPDATE]: gql`
+    mutation UpdateUser($updateInput: UpdateUserInput) {
+      data: updateUser(updateInput: $updateInput) {
+        response {
+          _id
+          fname
+          lname
+          email
+          phone
+        }
+      }
+    }
+  `
   },
 };
