@@ -45,7 +45,7 @@ export default {
       }
     `,
     [UPDATE]: gql`
-      mutation UpdateSheet($updateInput: UpdateSheetInput) {
+      mutation UpdateSheet($updateInput: UpdateUserSheetInput) {
         data: updateSheet(updateInput: $updateInput) {
           response {
             _id

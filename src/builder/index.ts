@@ -1,7 +1,8 @@
+import { ApolloQueryResult } from "@apollo/client";
 import { get } from "lodash";
 import { BuildQuery, IntrospectionResult } from 'ra-data-graphql';
+import { GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE } from 'react-admin';
 import overridenQueries from '../queries';
-import {  GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE } from 'react-admin';
 import { withoutProperties } from "../utils/object";
 
 const forbiddenUpdateData = ['_id', 'id', '__typename'];
@@ -40,7 +41,7 @@ const enhanceBuildQuery = (buildQuery: { (introspectionResults: IntrospectionRes
           }
         }
       },
-      parseResponse: (response: any) => {
+      parseResponse: (response: ApolloQueryResult<any>) => {
         const data =  response.data.data.response.items.map((item: any) => ({ ...item, id: item._id })); 
         const total = response.data.data.response.totalItems;
 
@@ -58,7 +59,7 @@ const enhanceBuildQuery = (buildQuery: { (introspectionResults: IntrospectionRes
       variables: {
         id: params.id
       },
-      parseResponse: (response: any) => {
+      parseResponse: (response: ApolloQueryResult<any>) => {
         const data =  response.data.data.response;
 
         return {
@@ -77,7 +78,7 @@ const enhanceBuildQuery = (buildQuery: { (introspectionResults: IntrospectionRes
           changes: withoutProperties(params.data, forbiddenUpdateData),
         }
       },
-      parseResponse: (response: any) => {
+      parseResponse: (response: ApolloQueryResult<any>) => {
         const data = response.data.data.response;
 
         return {
