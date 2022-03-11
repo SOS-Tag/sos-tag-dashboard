@@ -10,15 +10,16 @@ export const SheetList = (props: any) => {
   return (
     <List filters={<SheetFilter />} {...props}>
       <Datagrid>
-        <TextField source="_id" />
-        <TextField source="fname" />
-        <TextField source="lname" />
-        <TextField source="sex" />
-        <TextField source="dateOfBirth" />
-        <TextField source="nationality" />
-        <TextField source="bloodType" />
-        <BooleanField source="smoker" />
-        <BooleanField source="enabled" />
+        <TextField label={'ID'} source="_id" />
+        <TextField label={'Owner'} source="user.email"  />
+        <TextField label={'Firstname'} source="fname" />
+        <TextField label={'Lastname'} source="lname" />
+        <TextField label={'Sex'} source="sex" />
+        <TextField label={'Date of birth'} source="dateOfBirth" />
+        <TextField label={'Nationality'} source="nationality" />
+        <TextField label={'Bloodtype'} source="bloodType" />
+        <BooleanField label={'Smoker'} source="smoker" />
+        <BooleanField label={'Enabled'} source="enabled" />
         <EditButton/>
         <ShowButton/>
       </Datagrid>

@@ -18,6 +18,9 @@ export default {
               bloodType
               smoker
               enabled
+              user {
+                email
+              }
             }
             totalItems
           }
