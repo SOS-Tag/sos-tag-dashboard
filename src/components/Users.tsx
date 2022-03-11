@@ -1,5 +1,5 @@
 import {
-  Datagrid, Filter, List, TextField, TextInput
+  Datagrid, Filter, List, Show, ShowButton, SimpleShowLayout, TextField, TextInput
 } from "react-admin";
 
 export const UserFilter = (props: any) => (
@@ -15,7 +15,20 @@ export const UserList = (props: any) => {
         <TextField source="_id" />
         <TextField source="email" />
         <TextField source="phone" />
+        <ShowButton/>
       </Datagrid>
     </List>
   )
 };
+
+export const UserShow = (props: any) => (
+  <Show title="Show a sheet" {...props}>
+    <SimpleShowLayout>
+      <TextField source="_id"/>
+      <TextField source="fname"/>
+      <TextField source="lname"/>
+      <TextField source="email"/>
+      <TextField source="phone"/>
+    </SimpleShowLayout>
+  </Show>
+);

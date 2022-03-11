@@ -1,4 +1,4 @@
-import { GET_LIST } from 'react-admin';
+import { GET_LIST, GET_ONE } from 'react-admin';
 import gql from 'graphql-tag';
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -9,19 +9,36 @@ export default {
         data: allSheets(options: $options) {
           response {
             items {
-                _id
-                fname
-                lname
-                sex
-                dateOfBirth
-                nationality
-                bloodType
-                smoker
-                enabled
-              }
-              totalItems
+              _id
+              fname
+              lname
+              sex
+              dateOfBirth
+              nationality
+              bloodType
+              smoker
+              enabled
             }
+            totalItems
           }
+        }
+      }
+    `,
+    [GET_ONE]: gql`
+      query Sheet($id: String) {
+        data: Sheet(id: $id) {
+          response {
+            _id
+            fname
+            lname
+            sex
+            dateOfBirth
+            nationality
+            bloodType
+            smoker
+            enabled
+          }
+        }
       }
     `
   },
@@ -35,9 +52,22 @@ export default {
                 email
                 phone
               }
-              totalItems
-            }
+            totalItems
           }
+        }
+      }
+    `,
+    [GET_ONE]: gql`
+      query User($id: String) {
+        data: User(id: $id) {
+          response {
+            _id
+            fname
+            lname
+            email
+            phone
+          }
+        }
       }
     `
   },
