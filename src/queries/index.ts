@@ -1,9 +1,29 @@
-import { GET_LIST, GET_ONE, UPDATE } from 'react-admin';
+import { CREATE, GET_LIST, GET_ONE, UPDATE } from 'react-admin';
 import gql from 'graphql-tag';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   Sheet: {
+    [CREATE]: gql`
+      mutation CreateSheet($count: Float) {
+        data: createSheet(count: $count) {
+          response {
+            _id
+            fname
+            lname
+            sex
+            dateOfBirth
+            nationality
+            bloodType
+            smoker
+            enabled
+            user {
+              email
+            }
+          }
+        }
+      }
+    `,
     [GET_LIST]: gql`
       query AllSheets ($options: QueryOptions) {
         data: allSheets(options: $options) {
@@ -40,6 +60,9 @@ export default {
             bloodType
             smoker
             enabled
+            user {
+              email
+            }
           }
         }
       }
@@ -57,6 +80,9 @@ export default {
             bloodType
             smoker
             enabled
+            user {
+              email
+            }
           }
         }
       }

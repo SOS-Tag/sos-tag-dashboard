@@ -1,8 +1,10 @@
 import { ApolloQueryResult } from "@apollo/client";
 import { get } from "lodash";
 import { BuildQuery, IntrospectionResult } from 'ra-data-graphql';
-import { GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE } from 'react-admin';
+import { CREATE, GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE } from 'react-admin';
 import overridenQueries from '../queries';
+import ISheet from "../types/sheet.types";
+import IUser from "../types/user.types";
 import { withoutProperties } from "../utils/object";
 
 const forbiddenUpdateData = ['_id', 'id', '__typename'];
@@ -18,6 +20,26 @@ const enhanceBuildQuery = (buildQuery: { (introspectionResults: IntrospectionRes
     resourceName,
     params,
   );
+
+  if (query && fetchType === CREATE) {
+    return {
+      ...builtQuery,
+      query,
+      variables: {
+        count: params.data.count
+      },
+      parseResponse: (response: ApolloQueryResult<any>) => {
+        const data = response.data.data.response.map((item: ISheet) => ({ ...item, id: item._id }));
+
+        // TODO: data return type must be a single record, but in reality we have multiple records
+        // in response of our custom creation resolver. However, a `createMany` request does not exists.
+        // Is it possible to develop one in order to shape the return type of data we want?
+        return {
+          data: { ...data, id: data[0]._id },
+        };
+      }
+    };
+  }
 
   if (query && (fetchType === GET_LIST || fetchType === GET_MANY || fetchType === GET_MANY_REFERENCE))
     return {
@@ -42,7 +64,7 @@ const enhanceBuildQuery = (buildQuery: { (introspectionResults: IntrospectionRes
         }
       },
       parseResponse: (response: ApolloQueryResult<any>) => {
-        const data =  response.data.data.response.items.map((item: any) => ({ ...item, id: item._id })); 
+        const data = response.data.data.response.items.map((item: ISheet | IUser) => ({ ...item, id: item._id }));
         const total = response.data.data.response.totalItems;
 
         return {
@@ -51,7 +73,7 @@ const enhanceBuildQuery = (buildQuery: { (introspectionResults: IntrospectionRes
         };
       }
     };
-  
+
   if (query && fetchType === GET_ONE)
     return {
       ...builtQuery,
@@ -60,7 +82,7 @@ const enhanceBuildQuery = (buildQuery: { (introspectionResults: IntrospectionRes
         id: params.id
       },
       parseResponse: (response: ApolloQueryResult<any>) => {
-        const data =  response.data.data.response;
+        const data = response.data.data.response;
 
         return {
           data: { id: data._id, ...data },
@@ -82,7 +104,7 @@ const enhanceBuildQuery = (buildQuery: { (introspectionResults: IntrospectionRes
         const data = response.data.data.response;
 
         return {
-          data: {id: data._id, ...data},
+          data: { id: data._id, ...data },
         };
       }
     };
