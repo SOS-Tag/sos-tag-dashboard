@@ -1,12 +1,12 @@
 import buildGraphQLProvider, { buildQuery } from 'ra-data-graphql-simple';
-import * as React from "react";
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Admin, DataProvider, LegacyDataProvider, Resource } from "react-admin";
 import { enhanceBuildQuery } from './builder';
-// import authProvider from './providers/auth'
+import authProvider from './providers/auth'
 import CircularIndeterminate from './components/CircularIndeterminate';
 import sheetActions from './modules/sheets';
 import userActions from './modules/users';
+import { link } from './apollo';
 
 const App = () => {
   const [dataProvider, setDataProvider] = useState<DataProvider | LegacyDataProvider | null>(null);
@@ -15,7 +15,11 @@ const App = () => {
       const onMount = async () => {
         // await sleep(80000);
         const provider = await buildGraphQLProvider({
-          clientOptions: { uri: 'http://localhost:8080/graphql', credentials: 'include' },
+          clientOptions: {
+            uri: process.env.REACT_APP_API_BASE_URL + '/graphql',
+            credentials: 'include',
+            link: link as any,
+          },
           buildQuery: enhanceBuildQuery(buildQuery),
         })
   
@@ -34,7 +38,7 @@ const App = () => {
   return (
     <Admin
       title={'SOS-Tag administrator panel'}
-      // authProvider={authProvider}
+      authProvider={authProvider}
       dataProvider={dataProvider}
     >
       <Resource name="Sheet" {...sheetActions} />
