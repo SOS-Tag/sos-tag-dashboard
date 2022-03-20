@@ -26,6 +26,7 @@ const SheetList = (props: any) => {
               <TextField label={'Sex'} source="sex" />
               <TextField label={'Date of birth'} source="dateOfBirth" />
               <TextField label={'Nationality'} source="nationality" />
+              <TextField label={'Created At'} source="createdAt" />
               <EditButton />
               <ShowButton />
             </Datagrid>
