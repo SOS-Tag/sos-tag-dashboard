@@ -5,7 +5,7 @@ import { CREATE, GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE } from 
 import overridenQueries from '../queries';
 import ISheet from "../types/sheet.types";
 import IUser from "../types/user.types";
-import { withoutProperties } from "../utils/object";
+import { cleanGQLinput } from "../utils/cleanGLinput";
 
 const forbiddenUpdateData = ['_id', 'id', '__typename'];
 
@@ -97,7 +97,7 @@ const enhanceBuildQuery = (buildQuery: { (introspectionResults: IntrospectionRes
       variables: {
         updateInput: {
           id: params.id,
-          changes: withoutProperties(params.data, forbiddenUpdateData),
+          changes: cleanGQLinput(params.data, ['__typename', '_id', 'id', 'user', 'createdAt', 'updatedAt', ]),
         }
       },
       parseResponse: (response: ApolloQueryResult<any>) => {

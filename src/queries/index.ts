@@ -25,10 +25,11 @@ export default {
       }
     `,
     [GET_LIST]: gql`
-      query AllSheets ($options: QueryOptions) {
+      query AllSheets($options: QueryOptions) {
         data: allSheets(options: $options) {
           response {
             items {
+              enabled
               _id
               fname
               lname
@@ -37,10 +38,27 @@ export default {
               nationality
               bloodType
               smoker
-              enabled
+              organDonor
+              advanceDirectives
+              allergies
+              medicalHistory
+              currentTreatment
+              treatingDoctor {
+                fname
+                lname
+                phone
+              }
+              emergencyContacts {
+                fname
+                lname
+                role
+                phone
+              }
               user {
                 email
               }
+              createdAt
+              updatedAt
             }
             totalItems
           }
@@ -51,6 +69,7 @@ export default {
       query Sheet($id: String) {
         data: Sheet(id: $id) {
           response {
+            enabled
             _id
             fname
             lname
@@ -59,16 +78,33 @@ export default {
             nationality
             bloodType
             smoker
-            enabled
+            organDonor
+            advanceDirectives
+            allergies
+            medicalHistory
+            currentTreatment
+            treatingDoctor {
+              fname
+              lname
+              phone
+            }
+            emergencyContacts {
+              fname
+              lname
+              role
+              phone
+            }
             user {
               email
             }
+            createdAt
+            updatedAt
           }
         }
       }
     `,
     [UPDATE]: gql`
-      mutation UpdateSheet($updateInput: UpdateUserSheetInput) {
+      mutation UpdateSheet($updateInput: UpdateSheetInput) {
         data: updateSheet(updateInput: $updateInput) {
           response {
             _id
@@ -90,13 +126,22 @@ export default {
   },
   User: {
     [GET_LIST]: gql`
-      query AllUsers ($options: QueryOptions) {
+      query AllUsers($options: QueryOptions) {
         data: allUsers(options: $options) {
           response {
             items {
                 _id
+                fname
+                lname
+                address
+                zipCode
+                city
                 email
                 phone
+                nationality
+                password
+                activated
+                confirmed
               }
             totalItems
           }
