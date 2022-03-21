@@ -81,12 +81,12 @@ const enhanceBuildQuery = (buildQuery: { (introspectionResults: IntrospectionRes
         }
       },
       parseResponse: (response: ApolloQueryResult<any>) => {
-        const data = response.data.data.response.items.map((item: ISheet | IUser) => ({ ...item, id: item._id }));
-        const total = response.data.data.response.totalItems;
+        const data = response.data.data.response?.items.map((item: ISheet | IUser) => ({ ...item, id: item._id }));
+        const total = response.data.data.response?.totalItems;
 
         return {
-          data,
-          total,
+          data: data || [],
+          total: total || 0,
         };
       }
     };
