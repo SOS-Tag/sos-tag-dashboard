@@ -162,7 +162,6 @@ export default {
                 nationality
                 password
                 activated
-                confirmed
               }
             totalItems
           }
@@ -182,11 +181,8 @@ export default {
             email
             phone
             nationality
-            roles
             password
-            tokenVersion
             activated
-            confirmed
             createdAt
             updatedAt
           }
@@ -218,11 +214,8 @@ export default {
             email
             phone
             nationality
-            roles
             password
-            tokenVersion
             activated
-            confirmed
             createdAt
             updatedAt
           }
