@@ -1,4 +1,5 @@
-import { BooleanInput, Edit, SimpleForm, TextInput } from "react-admin";
+import { BooleanInput, Edit, SelectInput, SimpleForm, TextInput } from "react-admin";
+import NATIONALITIES from "../../constants/nationalities";
 
 const UserEdit = (props: any) => (
   <Edit title="Edit a user" {...props}>
@@ -9,7 +10,7 @@ const UserEdit = (props: any) => (
       <TextInput source="address" />
       <TextInput source="zipCode" />
       <TextInput source="city" />
-      <TextInput source="nationality" />
+      <SelectInput source="nationality" optionText="text" optionValue="value" choices={NATIONALITIES}/>
       <TextInput source="phone" />
       <BooleanInput source="activated" />
       <BooleanInput source="confirmed" />

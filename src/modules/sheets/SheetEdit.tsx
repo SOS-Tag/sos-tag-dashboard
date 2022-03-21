@@ -1,4 +1,9 @@
-import { BooleanInput, DateInput, Edit, SimpleForm, TextInput } from "react-admin";
+import { BooleanInput, DateInput, Edit, SelectInput, SimpleForm, TextInput } from "react-admin";
+import BLOOD_TYPES from "../../constants/blood-types";
+import GENDERS from "../../constants/genders";
+import NATIONALITIES from "../../constants/nationalities";
+
+
 
 const SheetEdit = (props: any) => (
   <Edit title={'Edit a sheet'} {...props}>
@@ -6,10 +11,10 @@ const SheetEdit = (props: any) => (
       <BooleanInput source="enabled"/>
       <TextInput source="fname" />
       <TextInput source="lname" />
-      <TextInput source="sex"/>
+      <SelectInput source="sex" optionText="text" optionValue="value" choices={GENDERS}/>
       <DateInput source="dateOfBirth"/>
-      <TextInput source="nationality"/>
-      <TextInput source="bloodType"/>
+      <SelectInput source="nationality" optionText="text" optionValue="value" choices={NATIONALITIES}/>
+      <SelectInput source="bloodType" optionText="value" optionValue="value" choices={BLOOD_TYPES}/>
       <BooleanInput source="smoker"/>
       <BooleanInput source="organDonor"/>
       <BooleanInput source="advanceDirectives"/>
