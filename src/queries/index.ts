@@ -1,4 +1,4 @@
-import { CREATE, GET_LIST, GET_ONE, UPDATE } from 'react-admin';
+import { CREATE, DELETE, GET_LIST, GET_ONE, UPDATE } from 'react-admin';
 import gql from 'graphql-tag';
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -122,7 +122,28 @@ export default {
           }
         }
       }
-    `
+    `,
+    [DELETE]: gql`
+      mutation DeleteSheet($id: String) {
+        deleteSheet(id: $id) {
+          response {
+            _id
+          }
+          error {
+            type
+            code
+            title
+            message
+            timestamp
+            fields {
+              type
+              name
+              detail
+            }
+          }
+        }
+      }
+    `,
   },
   User: {
     [GET_LIST]: gql`
@@ -162,17 +183,38 @@ export default {
       }
     `,
     [UPDATE]: gql`
-    mutation UpdateUser($updateInput: UpdateUserInput) {
-      data: updateUser(updateInput: $updateInput) {
-        response {
-          _id
-          fname
-          lname
-          email
-          phone
+      mutation UpdateUser($updateInput: UpdateUserInput) {
+        data: updateUser(updateInput: $updateInput) {
+          response {
+            _id
+            fname
+            lname
+            email
+            phone
+          }
         }
       }
-    }
-  `
+    `,
+    [DELETE]: gql`
+      mutation DeleteUser($id: String) {
+        deleteUser(id: $id) {
+          response {
+            _id
+          }
+          error {
+            type
+            code
+            title
+            message
+            timestamp
+            fields {
+              type
+              name
+              detail
+            }
+          }
+        }
+      }
+    `,
   },
 };

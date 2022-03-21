@@ -1,13 +1,11 @@
 import { ApolloQueryResult } from "@apollo/client";
 import { get } from "lodash";
 import { BuildQuery, IntrospectionResult } from 'ra-data-graphql';
-import { CREATE, GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE } from 'react-admin';
+import { CREATE, DELETE, GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE } from 'react-admin';
 import overridenQueries from '../queries';
 import ISheet from "../types/sheet.types";
 import IUser from "../types/user.types";
 import { cleanGQLinput } from "../utils/cleanGLinput";
-
-const forbiddenUpdateData = ['_id', 'id', '__typename'];
 
 const enhanceBuildQuery = (buildQuery: { (introspectionResults: IntrospectionResult): BuildQuery }) => (introspectionResults: IntrospectionResult) => (
   fetchType: string,
@@ -36,6 +34,25 @@ const enhanceBuildQuery = (buildQuery: { (introspectionResults: IntrospectionRes
         // Is it possible to develop one in order to shape the return type of data we want?
         return {
           data: { ...data, id: data[0]._id },
+        };
+      }
+    };
+  }
+
+  if (query && fetchType === DELETE) {
+    return {
+      ...builtQuery,
+      query,
+      variables: {
+        id: params.id,
+      },
+      parseResponse: (response: ApolloQueryResult<any>) => {
+        const data =
+        response?.data?.deleteUser?.response
+          || response?.data?.deleteSheet?.response; //TODO Oskour
+
+        return {
+          data: { id: data._id },
         };
       }
     };
