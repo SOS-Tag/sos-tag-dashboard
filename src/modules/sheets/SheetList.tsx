@@ -1,4 +1,4 @@
-import { Datagrid, EditButton, List, Responsive, ShowButton, SimpleList, TextField } from "react-admin";
+import { BooleanField, Datagrid, DateField, EditButton, List, Responsive, ShowButton, SimpleList, TextField } from "react-admin";
 import SheetFilter from "./SheetFilter";
 
 const SheetList = (props: any) => {
@@ -20,13 +20,14 @@ const SheetList = (props: any) => {
           medium={
             <Datagrid>
               <TextField label={'ID'} source="_id" />
+              <BooleanField label={'Enabled'} source="enabled" />
               <TextField label={'Owner'} source="user.email" />
               <TextField label={'First name'} source="fname" />
               <TextField label={'Last name'} source="lname" />
               <TextField label={'Sex'} source="sex" />
-              <TextField label={'Date of birth'} source="dateOfBirth" />
+              <DateField label={'Date of birth'} source="dateOfBirth" />
               <TextField label={'Nationality'} source="nationality" />
-              <TextField label={'Created At'} source="createdAt" />
+              <DateField label={'Created At'} source="createdAt" />
               <EditButton />
               <ShowButton />
             </Datagrid>

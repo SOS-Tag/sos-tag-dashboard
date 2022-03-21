@@ -176,8 +176,31 @@ export default {
             _id
             fname
             lname
+            address
+            zipCode
+            city
             email
             phone
+            nationality
+            roles
+            password
+            tokenVersion
+            activated
+            confirmed
+            createdAt
+            updatedAt
+          }
+          error {
+            type
+            code
+            title
+            message
+            timestamp
+            fields {
+              type
+              name
+              detail
+            }
           }
         }
       }
@@ -189,8 +212,31 @@ export default {
             _id
             fname
             lname
+            address
+            zipCode
+            city
             email
             phone
+            nationality
+            roles
+            password
+            tokenVersion
+            activated
+            confirmed
+            createdAt
+            updatedAt
+          }
+          error {
+            type
+            code
+            title
+            message
+            timestamp
+            fields {
+              type
+              name
+              detail
+            }
           }
         }
       }

@@ -10,9 +10,7 @@ const UserList = (props: any) => {
         <TextField source="fname" />
         <TextField source="lname" />
         <TextField source="phone" />
-        <TextField source="nationality" />
         <BooleanField source="activated" />
-        <BooleanField source="confirmed" />
         <EditButton/>
         <ShowButton/>
       </Datagrid>
