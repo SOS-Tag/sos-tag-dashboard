@@ -13,7 +13,6 @@ const UserEdit = (props: any) => (
       <SelectInput source="nationality" optionText="text" optionValue="value" choices={NATIONALITIES}/>
       <TextInput source="phone" />
       <BooleanInput source="activated" />
-      <BooleanInput source="confirmed" />
     </SimpleForm>
   </Edit>
 );

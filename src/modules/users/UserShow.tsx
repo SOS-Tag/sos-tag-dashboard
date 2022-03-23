@@ -13,7 +13,6 @@ const UserShow = (props: any) => (
       <TextField source="phone" />
       <TextField source="nationality" />
       <BooleanField source="activated" />
-      <BooleanField source="confirmed" />
     </SimpleShowLayout>
   </Show>
 );
